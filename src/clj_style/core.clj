@@ -30,8 +30,8 @@
                    (@defined-rules group#)
                    vec
                    (conj rule#))]
-       (swap! defined-rules assoc group# rules#)
-       nil)))
+       (swap! defined-rules assoc group# rules#))
+     (var ~name)))
 
 (defn render
   "Render the rule, mixin, or entire group to string. If no argument is specified,

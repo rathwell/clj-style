@@ -1,8 +1,13 @@
-(ns gaka.plus
+(ns clj-style.core
   (:require [gaka.core :as g]))
 
 ;; defined rules by group (vector of rules for each :group)
 (def defined-rules (atom {}))
+
+(defn reset-rules!
+  "Resets the atom holding the defined rules for output."
+  []
+  (reset! defined-rules {}))
 
 (defmacro defmixin
   "Defines a new mixin with the specified name. Args should be pairs

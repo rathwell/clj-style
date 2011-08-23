@@ -1,5 +1,5 @@
-(ns gaka-plus.test.core
-  (:use [gaka.plus])
+(ns clj-style.test.core
+  (:use [clj-style.core])
   (:use [clojure.test]))
 
 (deftest replace-me ;; FIXME: write

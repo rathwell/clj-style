@@ -1,11 +1,12 @@
-# gaka-plus
+# clj-style
 
-gaka-plus is an extension of the gaka library that adds a few convenience macros and
-functions to provide a slightly different interface for building css.
+clj-style is a css generation library for clojure.  It extends the gaka 
+library by adding a few convenience macros and functions to provide a 
+little bit different interface than gaka.
 
-## Usage
+## Usage  (Under Construction)
 
-[org.clojars.rathwell/gaka-plus "1.0.0"]
+[org.clojars.rathwell/clj-style "1.0.0"]
 
 overview
   - should not interfere with gaka

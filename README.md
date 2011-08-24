@@ -214,8 +214,8 @@ Now only the full rule (widget) is in the output, which is probably what we want
 There are times, for example when playing around at a repl, or possibly for file
 output reasons, that you will want or need to clear out the atom that tracks
 groups and rules.  For this reason, there is a function called `reset-rules!`.
-This does not affect the vars bound to your defined rules, it only clears
-the tracking of the rules and groups when you may need it.
+This does not affect your defined rules, it only clears the tracking of the rules 
+and groups for render and save purposes, when you need it.
 
 ```clojure
 (cs/reset-rules!)

@@ -53,7 +53,7 @@ specify a group, then :default will be used.
 
 The `render` function will render and return the rule as a css string.
 
-    (cs/render div-foo)
+    (cs/render div-baz)
     ;=> "div#baz {\n  padding: 5px;\n  margin: 10px;}\n\n"
     
     (println (cs/render div-baz))

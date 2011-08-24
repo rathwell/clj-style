@@ -161,6 +161,10 @@ the rules from a specific group.
     
     (cs/render :print)
     ;=> "div#baz {\n  padding: 20px;\n  margin: 30px;}\n\n"
+    
+    (cs/save "browser-styles.css" :screen)
+    
+    (cs/save "printer-styles.css" :print)
 
 
 ### Nesting

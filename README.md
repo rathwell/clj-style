@@ -51,7 +51,7 @@ specify a group, then :default will be used.
        :margin :10px])
 
 
-The `render` function will render and return the rule as a css string.
+The `render` function will render and return the rule as a formatted css string.
 
     (cs/render div-baz)
     ;=> "div#baz {\n  padding: 5px;\n  margin: 10px;}\n\n"
@@ -141,8 +141,15 @@ render
 
 ### Indentation / Minification
 
-remove indentation in render and save
-  - (binding [gaka.core/*print-indent* false] (save))
+`clj-style` does not offer complete whitespace removal, or any kind of
+minification.  The only offering is to take advantage of `gaka`'s ability
+to turn off the indenting feature, removing a little whitespace.  You may
+want to create your own minification as a part of your build process.
+
+Example of turning off the automatic indenting:
+
+    (binding [gaka.core/*print-indent* false] 
+      (cs/save "style.css"))
 
 
 ## License

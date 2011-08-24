@@ -93,8 +93,9 @@ p-foo
 ;=> (:margin :0px :width "80%")
 ```
 
-As you can see, this is just syntactic sugar for defining a list of properties.
-These mixins can then be mixed into rules or other mixins.
+As you can see, this is just syntactic sugar for defining a list of 
+properties (with some metadata). These mixins can then be mixed into 
+rules or other mixins.
 
 ```clojure
 (cs/defmixin blue-on-black

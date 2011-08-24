@@ -183,23 +183,17 @@ to define them with an unused group, for example :ignore.
 
     (require '[clj-style.core :as cs])
     
-    (cs/defrule span :ignore [:span :padding :10px])
-    ;=> #'user/span
+    (cs/defrule link :ignore [:a :text-decoration :none])
+    ;=> #'user/link
     
-    span
-    ;=> [:span :padding :10px]
-    
-    (cs/defrule div [:div :color :black span])
-    ;=> #'user/div
-    
-    div
-    ;=> [:div :color :black [:span :padding :10px]]
+    (cs/defrule widget [:.widget :color :black link])
+    ;=> #'user/widget
     
     (cs/render)
-    ;=> "div {\n  color: black;}\n\n  div span {\n    padding: 10px;}\n\n"
+    ;=> ".widget {\n  color: black;}\n\n  .widget a {\n    text-decoration: none;}\n\n"
 
 
-Now only the full rule is in the output, which is probably what we want.
+Now only the full rule (widget) is in the output, which is probably what we want.
 
     
 ### Reset
@@ -212,12 +206,26 @@ the tracking of the rules and groups when you may need it.
 
     (cs/reset-rules!)
 
-### Create a File
+### Output a File
+
+As previously mentioned, the `save` function will output the css from a group
+to the specified file. 
 
  -:default group
  - specific group
  
 ### Multiple Files
+
+When you intend to output multiple files, there are a couple of ways to ga about it.
+
+1. Specify a group for every rule definition and save each group to a different file.
+
+
+2. Don't worry about specifying groups, just use the default.  Instead, reset the 
+rule tracking before defining the rules for each file.  Most likely, one clojure
+file would correspond to one css output file, and you would reset at the start of
+each file and save at the end of each.
+
 
 
 ### Indentation / Minification

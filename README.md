@@ -1,10 +1,10 @@
 # clj-style 1.0.0
 
 A CSS generation library for Clojure.  It extends the 
-[`gaka`](https://github.com/briancarper/gaka) library with a 
+[gaka](https://github.com/briancarper/gaka) library with a 
 few convenience macros and functions to provide a little bit 
 different interface.  While there should be no issues using
-elements from both `clj-style` and `gaka`, you will generally
+pieces of both `clj-style` and `gaka`, you would generally
 only use one.
 
 ## Usage
@@ -35,13 +35,53 @@ serve to organize your rules for output to separate files.
 You can easily define mixins with the `defmixin` macro.  This macro expects
 a name for the mixin, and an arbitrary number of property/value pairs.
 
+    (require '[clj-style.core :as cs])
+    
+    (cs/defmixin blue
+      :color :blue)
+    ;=> #'user/blue
+    
+    blue
+    ;=> (:color :blue)
+    
+    (cs/defmixin p-foo
+      :margin :0px
+      :width "80%")
+    ;=> #'user/blue
+    
+    p-foo
+    ;=> (:margin :0px :width "80%")
 
-As you can see, this is just syntactic for defining a list of properties.
+
+As you can see, this is just syntactic sugar for defining a list of properties.
 These mixins can then be mixed into rules or other mixins.
+
+    (cs/defmixin blue-on-black
+      blue
+      :background-color :black)
+    ;=> #'user/blue-on-black
+    
+    blue-on-black
+    ;=> (:color :blue :background-color :black)
+    
+    (cs/defrule blue-div
+      [:div
+       :width :100px
+       blue-on-black])
+    ;=> #'user/blue-div
+    
+    blue-div
+    ;=> [:div :width :100px (:color :blue :background-color :black)]
 
 
 The `render` function can be used with mixins to generate css suitable
 for inline style declarations.
+
+    (cs/render blue)
+    ;=> "color: blue;"
+
+    (cs/render blue-on-black)
+    ;=> "color: blue; background-color: black;"
 
 
 ### Nesting

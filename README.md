@@ -138,33 +138,33 @@ the rules from a specific group.
 
     (require '[clj-style.core :as cs])
     
-    (cs/defrule div-foo :screen
+    (cs/defrule div-foo :main
       [:div#foo
        :padding :5px
        :margin :10px])
     ;=> #'user/div-foo
     
-    (cs/defrule div-bar :screen
+    (cs/defrule div-bar :main
       [:div#bar
        :padding :10px
        :margin :20px])
     ;=> #'user/div-bar
     
-    (cs/defrule div-baz :print
+    (cs/defrule div-baz :extra
       [:div#baz
        :padding :20px
        :margin :30px])
     ;=> #'user/div-baz
     
-    (cs/render :screen)
+    (cs/render :main)
     ;=> "div#foo {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#bar {\n  padding: 10px;\n  margin: 20px;}\n\n"
     
-    (cs/render :print)
+    (cs/render :extra)
     ;=> "div#baz {\n  padding: 20px;\n  margin: 30px;}\n\n"
     
-    (cs/save "browser-styles.css" :screen)
+    (cs/save "styles-main.css" :main)
     
-    (cs/save "printer-styles.css" :print)
+    (cs/save "styles-extra.css" :extra)
 
 
 ### Nesting
@@ -238,32 +238,72 @@ When you intend to output multiple files, there are a couple of ways to ga about
 
 1. Specify a group for every rule definition and save each group to a different file.
 
-    (require '[clj-style.core :as cs])
-    
-    (cs/defrule div-foo :screen
-      [:div#foo
-       :padding :5px
-       :margin :10px])
-    
-    (cs/defrule div-bar :screen
-      [:div#bar
-       :padding :10px
-       :margin :20px])
-    
-    (cs/defrule div-baz :print
-      [:div#baz
-       :padding :20px
-       :margin :30px])
-    
-    (cs/save "browser-styles.css" :screen)
-    
-    (cs/save "printer-styles.css" :print)
+        (require '[clj-style.core :as cs])
+        
+        (cs/defrule div-foo :screen
+          [:div#foo
+           :padding :5px
+           :margin :10px])
+        
+        (cs/defrule div-bar :screen
+          [:div#bar
+           :padding :10px
+           :margin :20px])
+        
+        (cs/defrule div-foo-p :print
+          [:div#foo
+           :padding :20px
+           :margin :30px])
+           
+        (cs/defrule div-bar-p :print
+          [:div#bar
+           :padding :20px
+           :margin :30px])
+      
+        (cs/save "browser-styles.css" :screen)
+        
+        (cs/save "printer-styles.css" :print)
 
 2. Don't worry about specifying groups, just use the default.  Instead, reset the 
 rule tracking before defining the rules for each file.  Most likely, one clojure
 file would correspond to one css output file, and you would reset at the start of
 each file and save at the end of each.
 
+        (ns css.screen
+          (:require [clj-style.core :as cs]))
+        
+        (cs/reset-rules!)
+        
+        (cs/defrule div-foo
+          [:div#foo
+           :padding :5px
+           :margin :10px])
+        
+        (cs/defrule div-bar
+          [:div#bar
+           :padding :10px
+           :margin :20px])
+           
+        (cs/save "browser-styles.css")
+        
+        ;;;;;;;;;;;
+        
+        (ns css.print
+          (:require [clj-style.core :as cs]))
+        
+        (cs/reset-rules!)
+        
+        (cs/defrule div-foo
+          [:div#foo
+           :padding :20px
+           :margin :30px])
+      
+        (cs/defrule div-bar
+          [:div#bar
+           :padding :20px
+           :margin :30px])
+        
+        (cs/save "printer-styles.css")
 
 
 ### Indentation / Minification

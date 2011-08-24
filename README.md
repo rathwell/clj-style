@@ -15,7 +15,7 @@ mixins, and creating files.
 
 ### Installation
 
-[org.clojars.rathwell/clj-style "1.0.0"]
+Add the entry to your project.clj: `[org.clojars.rathwell/clj-style "1.0.0"]`
 
 ### Rules
 
@@ -24,10 +24,28 @@ and a vector representing a rule, in the format of `gaka` (see
 [the gaka docs](https://github.com/briancarper/gaka) for a complete 
 introduction to the format.
 
+    (require '[clj-style.core :as cs])
+    
+    (cs/defrule  div-foo
+      [:div#foo
+       :margin "0px"
+       [:span.bar
+        :color "black"
+        :font-weight "bold"
+        [:a:hover
+         :text-decoration "none"]]])
+    ;=> #'user/div-foo
+    
+    div-foo
+    ;=> [:div#foo :margin "0px" [:span.bar :color "black" :font-weight "bold" [:a:hover :text-decoration "none"]]]
+    
 
 You can also specify a group (as a keyword) that the rule should belong 
 to.  Groups are described in more detail later, but for now they basically 
 serve to organize your rules for output to separate files.
+
+
+The `render` function will render and return the rule as a css string.
 
 
 ### Mixins
@@ -84,16 +102,6 @@ for inline style declarations.
     ;=> "color: blue; background-color: black;"
 
 
-### Nesting
-
-  - rules in rules
-    - set group to :ignore (or any other value that is not used by main rules)
-
-### Saving Files
-
- -:default group
- - specific group
-
 ### Groups
 
 Groups are the way clj-style organizes rules for rendering and saving.
@@ -104,7 +112,20 @@ render
   - :default group
   - specific group
 
-### Notes
+### Nesting
+
+  - rules in rules
+    - set group to :ignore (or any other value that is not used by main rules)
+
+### Create a File
+
+ -:default group
+ - specific group
+ 
+### Multiple Files
+
+
+### Indentation / Minification
 
 remove indentation in render and save
   - (binding [gaka.core/*print-indent* false] (save))

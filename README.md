@@ -340,6 +340,10 @@ Example of turning off the automatic indenting:
   (cs/save "style.css"))
 ```
 
+### TODO
+
+* Consider selector inheritance a la SASS (@extend)
+
 ## License
 
 Copyright (C) 2011 Mark Rathwell

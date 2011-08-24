@@ -209,10 +209,28 @@ the tracking of the rules and groups when you may need it.
 ### Output a File
 
 As previously mentioned, the `save` function will output the css from a group
-to the specified file. 
+to the specified file.  Generally, you will define all of your rules, then
+throw a call to save at the top level so an output file is created each time
+the code is required.
 
- -:default group
- - specific group
+    (require '[clj-style.core :as cs])
+    
+    (cs/defrule div-foo
+      [:div#foo
+       :padding :5px
+       :margin :10px])
+    
+    (cs/defrule div-bar
+      [:div#bar
+       :padding :10px
+       :margin :20px])
+    
+    (cs/defrule div-baz 
+      [:div#baz
+       :padding :20px
+       :margin :30px])
+    
+    (cs/save "styles.css")
  
 ### Multiple Files
 
@@ -220,6 +238,26 @@ When you intend to output multiple files, there are a couple of ways to ga about
 
 1. Specify a group for every rule definition and save each group to a different file.
 
+    (require '[clj-style.core :as cs])
+    
+    (cs/defrule div-foo :screen
+      [:div#foo
+       :padding :5px
+       :margin :10px])
+    
+    (cs/defrule div-bar :screen
+      [:div#bar
+       :padding :10px
+       :margin :20px])
+    
+    (cs/defrule div-baz :print
+      [:div#baz
+       :padding :20px
+       :margin :30px])
+    
+    (cs/save "browser-styles.css" :screen)
+    
+    (cs/save "printer-styles.css" :print)
 
 2. Don't worry about specifying groups, just use the default.  Instead, reset the 
 rule tracking before defining the rules for each file.  Most likely, one clojure
@@ -233,7 +271,8 @@ each file and save at the end of each.
 `clj-style` does not offer complete whitespace removal, or any kind of
 minification.  The only offering is to take advantage of `gaka`'s ability
 to turn off the indenting feature, removing a little whitespace.  You may
-want to create your own minification as a part of your build process.
+want to create your own whitespace removal and minification as a part of your 
+build process.
 
 Example of turning off the automatic indenting:
 

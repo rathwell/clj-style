@@ -157,7 +157,7 @@ the rules from a specific group.
     ;=> #'user/div-baz
     
     (cs/render :screen)
-    ;=> "div#baz {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#foo {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#bar {\n  padding: 10px;\n  margin: 20px;}\n\n"
+    ;=> "div#foo {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#bar {\n  padding: 10px;\n  margin: 20px;}\n\n"
     
     (cs/render :print)
     ;=> "div#baz {\n  padding: 20px;\n  margin: 30px;}\n\n"

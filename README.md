@@ -181,6 +181,23 @@ you have a duplicate rule being tracked that you probably don't want.
 To address this, for the rules that are only intended to be nested, it is probably best 
 to define them with an unused group, for example :ignore.
 
+    (require '[clj-style.core :as cs])
+    
+    (cs/defrule span :ignore [:span :padding :10px])
+    ;=> #'user/span
+    
+    span
+    ;=> [:span :padding :10px]
+    
+    (cs/defrule div [:div :color :black span])
+    ;=> #'user/div
+    
+    div
+    ;=> [:div :color :black [:span :padding :10px]]
+    
+    (cs/render)
+    ;=> "div {\n  color: black;}\n\n  div span {\n    padding: 10px;}\n\n"
+
 
 Now only the full rule is in the output, which is probably what we want.
 

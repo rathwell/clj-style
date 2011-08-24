@@ -22,7 +22,7 @@ Add the entry to your project.clj: `[org.clojars.rathwell/clj-style "1.0.0"]`
 Rules are defined with the `defrule` macro, which takes a name for the rule
 and a vector representing a rule, in the format of `gaka` (see
 [the gaka docs](https://github.com/briancarper/gaka) for a complete 
-introduction to the format.
+introduction to the format).
 
     (require '[clj-style.core :as cs])
     

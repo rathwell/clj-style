@@ -42,10 +42,24 @@ introduction to the format).
 
 You can also specify a group (as a keyword) that the rule should belong 
 to.  Groups are described in more detail later, but for now they basically 
-serve to organize your rules for output to separate files.
+serve to organize your rules for output to separate files.  If you do not
+specify a group, then :default will be used.
+
+    (cs/defrule div-baz :screen
+      [:div#baz
+       :padding :5px
+       :margin :10px])
 
 
 The `render` function will render and return the rule as a css string.
+
+    (cs/render div-foo)
+    ;=> "div#baz {\n  padding: 5px;\n  margin: 10px;}\n\n"
+    
+    (println (cs/render div-baz))
+    ;=> div#baz {
+    ;=>   padding: 5px;
+    ;=>   margin: 10px;}
 
 
 ### Mixins

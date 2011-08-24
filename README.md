@@ -130,7 +130,7 @@ group that the rule will belong to.  If you do not specify one, then :default
 is used.  If you only plan to output one css file, then there is no reason
 to worry about groups.
 
-When the `render` function is called with no arguments, and when the `save` 
+When the `render` function is called with no arguments, or when the `save` 
 function is called with only a filename, those functions will render, or
 save respectively, all of the rules in the :default group.  By specifying 
 groups when defining rules, you can then selectively save or render only
@@ -169,8 +169,21 @@ the rules from a specific group.
 
 ### Nesting
 
-  - rules in rules
-    - set group to :ignore (or any other value that is not used by main rules)
+The `gaka` format allows nesting of selectors inherently.  This should generally fulfill
+your nesting needs.  `clj-stye` does also allow you to nest a defined rule in another 
+rule definition, however, there is something you need to consider when doing this.
+
+If you define a rule, without specifying a group, it will be tracked in the :default
+group.  If you then define another rule, which contains the first rule, that whole rule
+will be tracked in the :default group.  Now, when you output the css with `save` or `render`
+you have a duplicate rule being tracked that you probably don't want.
+
+To address this, for the rules that are only intended to be nested, it is probably best 
+to define them with an unused group, for example :ignore.
+
+
+Now only the full rule is in the output, which is probably what we want.
+
     
 ### Reset
 

@@ -28,7 +28,7 @@ and a vector representing a rule, in the format of `gaka` (see
 [the gaka docs](https://github.com/briancarper/gaka) for a complete 
 introduction to the format).
 
-``clojure
+```clojure
 (require '[clj-st	yle.core :as cs])
 
 (cs/defrule  div-foo

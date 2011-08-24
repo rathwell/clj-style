@@ -171,6 +171,16 @@ the rules from a specific group.
 
   - rules in rules
     - set group to :ignore (or any other value that is not used by main rules)
+    
+### Reset
+
+There are times, for example when playing around at a repl, or possibly for file
+output reasons, that you will want or need to clear out the atom that tracks
+groups and rules.  For this reason, there is a function called `reset-rules!`.
+This does not affect the vars bound to your defined rules, it only clears
+the tracking of the rules and groups when you may need it.
+
+    (cs/reset-rules!)
 
 ### Create a File
 

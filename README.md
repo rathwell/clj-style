@@ -114,17 +114,54 @@ for inline style declarations.
 
     (cs/render blue-on-black)
     ;=> "color: blue; background-color: black;"
+    
+    (str "<p style=\"" (cs/render blue) "\">hello world</p>")
+    ;=> "<p style=\"color: blue;\">hello world</p>"
 
 
 ### Groups
 
-Groups are the way clj-style organizes rules for rendering and saving.
+Groups are the way `clj-style` organizes rules for rendering and saving.
 It is not a perfect system, by any means, but it gives you a couple of
 simple options for creating multiple .css files.
 
-render
-  - :default group
-  - specific group
+When defining a rule, as described above, you have the option to specify a 
+group that the rule will belong to.  If you do not specify one, then :default
+is used.  If you only plan to output one css file, then there is no reason
+to worry about groups.
+
+When the `render` function is called with no arguments, and when the `save` 
+function is called with only a filename, those functions will render, or
+save respectively, all of the rules in the :default group.  By specifying 
+groups when defining rules, you can then selectively save or render only
+the rules from a specific group.
+
+    (require '[clj-style.core :as cs])
+    
+    (cs/defrule div-foo :screen
+      [:div#foo
+       :padding :5px
+       :margin :10px])
+    ;=> #'user/div-foo
+    
+    (cs/defrule div-bar :screen
+      [:div#bar
+       :padding :10px
+       :margin :20px])
+    ;=> #'user/div-bar
+    
+    (cs/defrule div-baz :print
+      [:div#baz
+       :padding :20px
+       :margin :30px])
+    ;=> #'user/div-baz
+    
+    (cs/render :screen)
+    ;=> "div#baz {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#foo {\n  padding: 5px;\n  margin: 10px;}\n\ndiv#bar {\n  padding: 10px;\n  margin: 20px;}\n\n"
+    
+    (cs/render :print)
+    ;=> "div#baz {\n  padding: 20px;\n  margin: 30px;}\n\n"
+
 
 ### Nesting
 

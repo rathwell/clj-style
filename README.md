@@ -251,7 +251,7 @@ the code is required.
  
 ### Multiple Files
 
-When you intend to output multiple files, there are a couple of ways to ga about it.
+When you intend to output multiple files, there are a couple of ways to go about it.
 
 1. Specify a group for every rule definition and save each group to a different file.
 

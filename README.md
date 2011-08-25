@@ -18,7 +18,7 @@ mixins, and creating files.
 Add the entry to your project.clj: 
 
 ```clojure
-[org.clojars.rathwell/clj-style "1.0.0"]
+[clj-style "1.0.0"]
 ```
 
 ### Rules

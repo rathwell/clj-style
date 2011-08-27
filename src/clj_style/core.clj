@@ -10,12 +10,11 @@
   (reset! defined-rules {}))
 
 (defmacro defmixin
-  "Defines a new mixin with the specified name. Args should be pairs
-  of properties and values."
-  [name & args]
-  `(def ~name (with-meta
-                (-> (list ~@args) seq flatten)
-                {:type :mixin})))
+  "Defines a function with the specified name and params that returns
+  a mixin. Args should be pairs of properties and values."
+  [name params & args]
+  `(defn ~name [~@params]
+     (with-meta (-> (list ~@args) seq flatten) {:type :mixin})))
 
 (defmacro defrule
   "Defines a new css rule, which is a gaka format rule. Optionally, you may

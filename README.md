@@ -72,44 +72,46 @@ The `render` function will render and return the rule as a formatted css string.
 ### Mixins
 
 You can easily define mixins with the `defmixin` macro.  This macro expects
-a name for the mixin, and an arbitrary number of property/value pairs.
+a name for the mixin, a vector of parameters for the mixin, and an arbitrary 
+number of property/value pairs.
 
 ```clojure
 (require '[clj-style.core :as cs])
 
-(cs/defmixin blue
+(cs/defmixin blue []
   :color :blue)
 ;=> #'user/blue
 
-blue
+(blue)
 ;=> (:color :blue)
 
-(cs/defmixin p-foo
+(cs/defmixin wrapper [width]
   :margin :0px
-  :width "80%")
-;=> #'user/blue
+  :width width)
+;=> #'user/wrapper
 
-p-foo
-;=> (:margin :0px :width "80%")
+(wrapper :750px)
+;=> (:margin :0px :width :750px)
 ```
 
-As you can see, this is just syntactic sugar for defining a list of 
-properties (with some metadata). These mixins can then be mixed into 
+As you can see, this creates a function that outputs a mixin, using any
+parameters that you specified.  The resulting mixin output from this function
+is a seq of properties with some metadata. These mixins can then be mixed into 
 rules or other mixins.
 
 ```clojure
-(cs/defmixin blue-on-black
-  blue
+(cs/defmixin blue-on-black []
+  (blue)
   :background-color :black)
 ;=> #'user/blue-on-black
 
-blue-on-black
+(blue-on-black)
 ;=> (:color :blue :background-color :black)
 
 (cs/defrule blue-div
   [:div
    :width :100px
-   blue-on-black])
+   (blue-on-black)])
 ;=> #'user/blue-div
 
 blue-div
@@ -120,13 +122,13 @@ The `render` function can be used with mixins to generate css suitable
 for inline style declarations.
 
 ```clojure
-(cs/render blue)
+(cs/render (blue))
 ;=> "color: blue;"
 
-(cs/render blue-on-black)
+(cs/render (blue-on-black))
 ;=> "color: blue; background-color: black;"
 
-(str "<p style=\"" (cs/render blue) "\">hello world</p>")
+(str "<p style=\"" (cs/render (blue)) "\">hello world</p>")
 ;=> "<p style=\"color: blue;\">hello world</p>"
 ```
 

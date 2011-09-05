@@ -1,4 +1,4 @@
-# clj-style 1.0.0
+# clj-style 1.0.1
 
 A CSS generation library for Clojure.  It extends the 
 [gaka](https://github.com/briancarper/gaka) library with a 
@@ -18,7 +18,7 @@ mixins, and creating files.
 Add the entry to your project.clj: 
 
 ```clojure
-[clj-style "1.0.0"]
+[clj-style "1.0.1"]
 ```
 
 ### Rules

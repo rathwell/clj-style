@@ -2,7 +2,7 @@
   (:require [gaka.core :as g]))
 
 ;; defined rules by group (vector of rules for each :group)
-(def defined-rules (atom {}))
+(defonce defined-rules (atom {}))
 
 (defn reset-rules!
   "Resets the atom holding the defined rules for output."
